@@ -3,7 +3,7 @@
 ## Overview
 This app was created as a small pet project to assist astrophotographs with the aligment of a telescope's secondary mirror with the focuser using a phone and a collimation eyepiece.
 
-_Disclaimer this idea was inspired from this ![post](https://forums.sharpcap.co.uk/viewtopic.php?t=5936) describing the approach in ![SharpCap](https://www.sharpcap.co.uk/). However, this requires the use of SharpCap compatible cameras AND having a CS lens to have the secondary mirror in focus._
+_Disclaimer this idea was inspired from this ![post](https://forums.sharpcap.co.uk/viewtopic.php?t=5936) describing the approach in ![SharpCap](https://www.sharpcap.co.uk/). However, this requires the use of SharpCap compatible cameras AND having a CS lens to have the secondary mirror in focus which was not my case..._
 
 
 ## Requirements
@@ -25,5 +25,6 @@ _Disclaimer this idea was inspired from this ![post](https://forums.sharpcap.co.
 7. Adjust the green reticle to the edges of the secondary mirror
 8. From there you can evaluate whether the secondary is:
 - Centered in the focuser
-- Properly oriented toward the focuser i.e. appears circular and not eliptical
+- Properly oriented toward the focuser (i.e. appears circular and not eliptical)
+9. Iterate between steps 5 and 8 until the secondary mirror aligment with the focuser is satisfactory.
   
