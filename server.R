@@ -1,22 +1,26 @@
-library(shiny)
-library(magick)
-
 function(input, output, session) {
+  
+  # Required by shinyhelper
+  observe_helpers()
   
   # Initialize reactive values
   ## Image cropping value
-  crop    <- reactiveValues(x = NULL, y = NULL)
+  crop    <- reactiveValues(x = c(0, 0), y = c(0, 0))
   
-  ## When a double-click happens, check if there's a brush on the image
+  ## Update croping value if done via the mouse cursor
   observeEvent(input$img_dblclick, {
     brush <- input$img_brush
     if (!is.null(brush)) {
-      crop$x <- c(brush$xmin, brush$xmax)
-      crop$y <- c(brush$ymin, brush$ymax)
+      crop <- c(sort(c(brush$xmin, brush$xmax)), sort(c(brush$ymin, brush$ymax)))
     } else {
-      crop$x <- NULL
-      crop$y <- NULL
+      crop <- c(0, 0, 0, 0)
     }
+    
+    ## Update the UI accordingly
+    updateNumericInput(session, "cleft",   value = crop[1])
+    updateNumericInput(session, "cright",  value = crop[2])
+    updateNumericInput(session, "ctop",    value = crop[3])
+    updateNumericInput(session, "cbottom", value = crop[4])
   })
   
   # Import image
@@ -46,14 +50,24 @@ function(input, output, session) {
     }
     
     ## Crop image [destructive]
-    if (!is.null(crop$x)) {
-      img_obj <- image_crop(img_obj, geometry_area(width = diff(crop$x), height = diff(crop$y), x_off = min(crop$x), y_off = min(crop$y)))
+    if (sum(c(input$cright, input$cleft, input$cbottom, input$ctop)) > 0) {
+      img_obj <- image_crop(
+        image = img_obj, 
+        geometry = geometry_area(
+          width  = diff(c(input$cleft, input$cright)), 
+          height = diff(c(input$ctop, input$cbottom)), 
+          x_off  = input$cleft, 
+          y_off  = input$ctop
+        )
+      )
     }
     
     ## Rotate image [destructive]
     if (input$rotate != 0) {
-      img_obj <- image_rotate(img_obj, input$rotate)
-    }      
+      img_obj <- img_obj %>% 
+        image_background(color = "black") %>% # Avoid white areas added by default when rotating the object
+        image_rotate(input$rotate)
+    }  
     
     img_obj
   })

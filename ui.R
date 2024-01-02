@@ -1,9 +1,10 @@
 library(shiny)
 library(shinythemes)
+library(shinyhelper)
 
 # Define UI for application that draws a histogram
 navbarPage(
-  theme       = shinytheme("slate"),
+  theme       = shinytheme("cyborg"),
   title       = "CollimatR",
   windowTitle = "CollimatR",
   position    = "static-top",
@@ -11,8 +12,7 @@ navbarPage(
   footer      = tags$footer(
     class = "footer",
     p("Benjamin Guiastrennec 2024", 
-      style = "color: grey;font-size: 11px;text-align: center;position: relative;min-height: 100%;"
-      #style = "display: block; margin: auto; margin-top: 14px;"
+      style = "color: grey;font-size: 11px;text-align: center;"
     )
   ),
   
@@ -25,36 +25,49 @@ navbarPage(
       sidebarLayout(
         sidebarPanel(
           width = 3,
-          h4("1. Select Collimation Image"),
-          fileInput("img_file", label = NULL, accept = "image/*"),
+          h4("1. Collimation Image"),
+          helper(
+            fileInput("img_file", label = NULL, accept = "image/*", width = "95%"), 
+            type = "inline", title = "Uploading images", colour = "#D3D3D3",
+            content = p("Click the", code("Browse..."), " button and select an image of your secondary mirror seen through a collimation eyepiece.")
+          ),
           
           hr(),
           
           h4("2. Image Adjustments"),
           sliderInput("scale", "Scale", min = 0, max = 100, value = 100, post = "%"),
           
-          strong("Crop"),
-          helpText("Note: select an area on the image and double click to validate"),
-          fluidRow(
-            column(
-              numericInput("ctop", "Top", value = 0),
-              width = 6, offset = 3, style = "margin-bottom:-15px;"
-            ), 
-          ),
-          fluidRow(
-            column(
-              numericInput("cleft", "Left", value = 0),
-              width = 6, style = "margin-bottom:-15px;"
+          helper(
+            strong("Crop"), 
+            type = "inline", title = "Cropping", colour = "#D3D3D3",
+            content = p(p("To crop the image, select an area on the image output and double click whithin the highlighed area to validate."), br(),
+                        p("The cropping can be adjused using the numeric values in the 4 boxes"), br(),
+                        p("To reset the cropping double click on the image anywhere outside the highlighted ared"), br(),
+                        em("Known limitations:", br(),
+                        "- Reset the cropping before selecting a new area.", br(),
+                        "- The cropping needs to be set before the rotation."))
             ),
+          
+          fluidRow(
             column(
-              numericInput("cright", "Right", value = 0),
-              width = 6, style = "margin-bottom:-15px;"
+              numericInput("ctop", "Top", value = 0, min = 0),
+              width = 6, offset = 3, style = "margin-bottom:-15px;text-align: center;"
             )
           ),
           fluidRow(
             column(
-              numericInput("cbottom", "Bottom", value = 0),
-              width = 6, offset = 3, style = "margin-bottom:-15px;"
+              numericInput("cleft", "Left", value = 0, min = 0),
+              width = 6, style = "margin-bottom:-15px;text-align: center;"
+            ),
+            column(
+              numericInput("cright", "Right", value = 0, min = 0),
+              width = 6, style = "margin-bottom:-15px;text-align: center;"
+            )
+          ),
+          fluidRow(
+            column(
+              numericInput("cbottom", "Bottom", value = 0, min = 0),
+              width = 6, offset = 3, style = "margin-bottom:-15px;text-align: center;"
             )
           ),
           sliderInput("rotate", "Rotate", min = -180, max = 180, value = 0, post = "°")
