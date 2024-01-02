@@ -1,7 +1,7 @@
 # CollimatR
 
 ## Overview
-This app was created as a small pet project to assist astrophotographs with the aligment of a telescope's secondary mirror with the focuser using a phone and a collimation eyepiece.
+This app was created as a small pet project to assist astrophotographers with the alignment of a telescope's secondary mirror with the focuser using a phone and a collimation eyepiece.
 
 _Disclaimer this idea was inspired from this ![post](https://forums.sharpcap.co.uk/viewtopic.php?t=5936) describing the approach in ![SharpCap](https://www.sharpcap.co.uk/). However, this requires the use of SharpCap compatible cameras AND having a CS lens to have the secondary mirror in focus which was not my case..._
 
