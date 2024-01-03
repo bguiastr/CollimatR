@@ -1,10 +1,5 @@
-# Helpers
-my_col <- function(color, alpha) {
-  do.call(rgb,c(as.list(col2rgb(color)/255), alpha))
-}
-
 # Define the app backend
-function(input, output, session) {
+server <- function(input, output, session) {
   
   # Required by shinyhelper
   observe_helpers()

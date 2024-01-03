@@ -1,32 +1,6 @@
-# Dependencies
-library(shiny)
-library(shinythemes)
-library(shinyhelper)
-library(shinyWidgets)
-library(magick)
-library(plotrix)
-
-
-# Helpers
-collapse_toggle <- function(id, label, value = TRUE) {
-  prettyToggle(
-    inputId    = id,
-    value      = value,
-    label_on   = span(id = "mytoggle", label),
-    label_off  = span(id = "mytoggle", label),
-    icon_on    = icon("angle-down"),
-    icon_off   = icon("angle-right"),
-    status_on  = "info",
-    status_off = "info",
-    outline    = TRUE,
-    thick      = TRUE,
-    plain      = TRUE,
-    inline     = FALSE,
-    animation  = "rotate")
-}
-
 # Define UI
-navbarPage(
+ui <- function(request) {
+  navbarPage(
   theme       = shinytheme("cyborg"),
   title       = "CollimatR",
   windowTitle = "CollimatR",
@@ -133,7 +107,8 @@ navbarPage(
           collapse_toggle(id = "sec4", label = "4. Save", value = TRUE),
           conditionalPanel(
             condition = "input.sec4 == true",
-            downloadButton(outputId = "save_image", label = "Download image", class = "btn-primary")
+            downloadButton(outputId = "save_image", label = "Download image", class = "btn-primary"),
+            bookmarkButton()
           )
         ),
         
@@ -157,3 +132,4 @@ navbarPage(
            p("Coming Soon")
   )
 )
+}
