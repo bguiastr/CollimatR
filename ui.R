@@ -70,7 +70,11 @@ navbarPage(
               width = 6, offset = 3, style = "margin-bottom:-15px;text-align: center;"
             )
           ),
-          sliderInput("rotate", "Rotate", min = -180, max = 180, value = 0, post = "°")
+          helper(
+          sliderInput("rotate", "Rotate", min = -180, max = 180, value = 0, post = "°"),
+          type = "inline", title = "Adjusting secondary mirror orientation", colour = "#D3D3D3",
+          content = p("Adjust the image orientation to align the secondary mirror mount to the x axis.")
+          )
         ),
         
         # Show a plot of the generated distribution
