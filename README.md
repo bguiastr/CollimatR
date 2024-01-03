@@ -35,13 +35,12 @@ _Disclaimer this idea was inspired from this ![post](https://forums.sharpcap.co.
 Once cropped the boxes showing the selected image portion will be updated in the side bar. These values (in pixels) can be adjusted manually to refine the cropping.
 <p align="center" width="100%"><img width="90%" src="https://github.com/guiastrennec/CollimatR/assets/7304883/360de331-a495-4c54-8eef-59e685e13e8d"></p>
 
-8. The image can be rotated to align the X or Y axis of the image with the optical axis of the telescope. This will facilitate the evaluation of the orientation of the secondary mirror with respect to the focuser. Note: the rotation needs to be done after the cropping to work properly.
+8. The image can be rotated to align the X or Y axis of the image with the optical axis of the telescope. A grid can be added to the image by checking the `Show Grid` box. This step will facilitate the evaluation of the orientation of the secondary mirror with respect to the focuser. Note: the rotation needs to be done AFTER the cropping to work properly.
 <p align="center" width="100%"><img width="90%" src="https://github.com/guiastrennec/CollimatR/assets/7304883/278d3045-6342-4e53-ba90-d09f91c15bef"></p>
 
-9.  
-10. and make scape, rotation, crop adjustments to your convenience
-11. Adjust the red reticule to the edges of the focuser
-12. Adjust the green reticle to the edges of the secondary mirror
+9. Adjust the size (`Focuser reticule size`) and position (`X-origin offset`, `Y-origin offset`) sliders of the focuser reticule _(red circle)_ to match the edges of the focuser on the image. Then adjust the `Secondary reticule size` to match the size of the secondary mirror on the image.
+<p align="center" width="100%"><img width="90%" src="https://github.com/guiastrennec/CollimatR/assets/7304883/f64d8afc-d15a-42b4-a776-4fc35a12e0bc"></p>
+
 13. From there you can evaluate whether the secondary is:
 - Centered in the focuser
 - Properly oriented toward the focuser (i.e. appears circular and not eliptical)
