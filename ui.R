@@ -79,8 +79,10 @@ navbarPage(
           h4("3. Reticules"),
           checkboxInput("reticules", "Show reticules", value = FALSE),
           checkboxInput("grid", "Show grid", value = FALSE),
-          sliderInput("focuser", "Focuser reticule", value = 50, min = 0, max = 100, post = "%"),
-          sliderInput("secondary", "Secondary reticule", value = 30, min = 0, max = 100, post = "%")
+          sliderInput("focuser", "Focuser reticule size", value = 50, min = 0, max = 100, post = "%"),
+          sliderInput("secondary", "Secondary reticule size", value = 30, min = 0, max = 100, post = "%"),
+          sliderInput("xoffset", "X-origin offset", value = 0, min = -100, max = 100, post = "%"),
+          sliderInput("yoffset", "Y-origin offset", value = 0, min = -100, max = 100, post = "%")
           
         ),
         

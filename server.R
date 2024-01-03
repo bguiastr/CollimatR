@@ -93,19 +93,19 @@ function(input, output, session) {
     
     ## Draw the reference axis
     if (input$reticules) {
-      abline(h = img_inf$height/2, col = "red")
-      abline(v = img_inf$width/2, col = "red")
+      abline(v = img_inf$width * (input$xoffset + 100)/200, col = "red")
+      abline(h = img_inf$height * (input$yoffset + 100)/200, col = "red")
       plotrix::draw.circle(
-        x      = img_inf$height/2, 
-        y      = img_inf$width/2, 
-        radius = img_inf$width/4, 
+        x      = img_inf$width * (input$xoffset + 100)/200, 
+        y      = img_inf$height * (input$yoffset + 100)/200, 
+        radius = img_inf$width * input$focuser/200, 
         border = "red"
       )
       
       plotrix::draw.circle(
-        x      = img_inf$height/2, 
-        y      = img_inf$width/2, 
-        radius = img_inf$width/100, 
+        x      = img_inf$width * (input$xoffset + 100)/200, 
+        y      = img_inf$height * (input$yoffset + 100)/200, 
+        radius = img_inf$width * input$secondary/200, 
         border = "green"
       )
     }
