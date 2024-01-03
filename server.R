@@ -1,3 +1,8 @@
+# Helpers
+my_col <- function(color, alpha) {
+  do.call(rgb,c(as.list(col2rgb(color)/255), alpha))
+}
+
 function(input, output, session) {
   
   # Required by shinyhelper
@@ -7,7 +12,7 @@ function(input, output, session) {
   ## Image cropping value
   crop    <- reactiveValues(x = c(0, 0), y = c(0, 0))
   
-  ## Update croping value if done via the mouse cursor
+  ## Update cropping value if done via the mouse cursor
   observeEvent(input$img_dblclick, {
     brush <- input$img_brush
     if (!is.null(brush)) {
@@ -76,9 +81,39 @@ function(input, output, session) {
     # Input check
     validate(need(inherits(img_process(), "magick-image"), "No image loaded"))
     
+    # Add reticules
+    img_inf <- image_info(img_process())
+    img_obj <- image_draw(img_process())
+    
+    ## Draw the grid
+    if (input$grid) {
+      abline(h = seq(0, img_inf$height, length.out = 30), col = my_col("grey50", alpha = 0.5))
+      abline(v = seq(0, img_inf$width, length.out = 30), col = my_col("grey50", alpha = 0.5))
+    }
+    
+    ## Draw the reference axis
+    if (input$reticules) {
+      abline(h = img_inf$height/2, col = "red")
+      abline(v = img_inf$width/2, col = "red")
+      plotrix::draw.circle(
+        x      = img_inf$height/2, 
+        y      = img_inf$width/2, 
+        radius = img_inf$width/4, 
+        border = "red"
+      )
+      
+      plotrix::draw.circle(
+        x      = img_inf$height/2, 
+        y      = img_inf$width/2, 
+        radius = img_inf$width/100, 
+        border = "green"
+      )
+    }
+    dev.off()
+    
     # Create the final image
     tmpfile <- image_write(
-      image  = img_process(), 
+      image  = img_obj, 
       path   = tempfile(fileext = "jpg"), 
       format = "jpg"
     )

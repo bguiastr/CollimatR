@@ -41,7 +41,7 @@ navbarPage(
             strong("Crop"), 
             type = "inline", title = "Cropping", colour = "#D3D3D3",
             content = p(p("To crop the image, select an area on the image output and double click whithin the highlighed area to validate."), br(),
-                        p("The cropping can be adjused using the numeric values in the 4 boxes"), br(),
+                        p("The cropping can be adjused using the numeric values in the 4 boxes. The origin point (i.e., 0, 0) is the top left corner."), br(),
                         p("To reset the cropping double click on the image anywhere outside the highlighted ared"), br(),
                         em("Known limitations:", br(),
                         "- Reset the cropping before selecting a new area.", br(),
@@ -74,7 +74,14 @@ navbarPage(
           sliderInput("rotate", "Rotate", min = -180, max = 180, value = 0, post = "°"),
           type = "inline", title = "Adjusting secondary mirror orientation", colour = "#D3D3D3",
           content = p("Adjust the image orientation to align the secondary mirror mount to the x axis.")
-          )
+          ),
+          
+          h4("3. Reticules"),
+          checkboxInput("reticules", "Show reticules", value = FALSE),
+          checkboxInput("grid", "Show grid", value = FALSE),
+          sliderInput("focuser", "Focuser reticule", value = 50, min = 0, max = 100, post = "%"),
+          sliderInput("secondary", "Secondary reticule", value = 30, min = 0, max = 100, post = "%")
+          
         ),
         
         # Show a plot of the generated distribution
