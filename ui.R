@@ -1,6 +1,7 @@
 library(shiny)
 library(shinythemes)
 library(shinyhelper)
+library(magick)
 
 # Define UI for application that draws a histogram
 navbarPage(
@@ -35,7 +36,7 @@ navbarPage(
           hr(),
           
           h4("2. Image Adjustments"),
-          sliderInput("scale", "Scale", min = 0, max = 100, value = 100, post = "%"),
+          sliderInput("scale", "Scale", value = 30, min = 0, max = 100, post = "%"),
           
           helper(
             strong("Crop"), 
@@ -44,9 +45,9 @@ navbarPage(
                         p("The cropping can be adjused using the numeric values in the 4 boxes. The origin point (i.e., 0, 0) is the top left corner."), br(),
                         p("To reset the cropping double click on the image anywhere outside the highlighted ared"), br(),
                         em("Known limitations:", br(),
-                        "- Reset the cropping before selecting a new area.", br(),
-                        "- The cropping needs to be set before the rotation."))
-            ),
+                           "- Reset the cropping before selecting a new area.", br(),
+                           "- The cropping needs to be set before the rotation."))
+          ),
           
           fluidRow(
             column(
@@ -71,19 +72,24 @@ navbarPage(
             )
           ),
           helper(
-          sliderInput("rotate", "Rotate", min = -180, max = 180, value = 0, post = "°"),
-          type = "inline", title = "Adjusting secondary mirror orientation", colour = "#D3D3D3",
-          content = p("Adjust the image orientation to align the secondary mirror mount to the x axis.")
+            sliderInput("rotate", "Rotate", min = -180, max = 180, value = 0, post = "°"),
+            type = "inline", title = "Adjusting secondary mirror orientation", colour = "#D3D3D3",
+            content = p("Adjust the image orientation to align the secondary mirror mount to the x axis.")
           ),
           
           h4("3. Reticules"),
-          checkboxInput("reticules", "Show reticules", value = FALSE),
-          checkboxInput("grid", "Show grid", value = FALSE),
-          sliderInput("focuser", "Focuser reticule size", value = 50, min = 0, max = 100, post = "%"),
-          sliderInput("secondary", "Secondary reticule size", value = 30, min = 0, max = 100, post = "%"),
-          sliderInput("xoffset", "X-origin offset", value = 0, min = -100, max = 100, post = "%"),
-          sliderInput("yoffset", "Y-origin offset", value = 0, min = -100, max = 100, post = "%")
+          fluidRow(
+            column(checkboxInput("grid", "Show grid", value = FALSE), width = 6),
+            column(checkboxInput("reticules", "Show reticules", value = FALSE), width = 6)
+          ),
+          sliderInput("grid_size", "Grid size", value = 5, min = 0, max = 100, post = "%"),
           
+          fluidRow(
+            column(sliderInput("xoffset", "X-origin offset", value = 0, min = -100, max = 100, post = "%"), width = 6),
+            column(sliderInput("yoffset", "Y-origin offset", value = 0, min = -100, max = 100, post = "%"), width = 6)
+          ),
+          sliderInput("focuser", "Focuser reticule size", value = 50, min = 0, max = 100, post = "%"),
+          sliderInput("secondary", "Secondary reticule size", value = 30, min = 0, max = 100, post = "%")
         ),
         
         # Show a plot of the generated distribution

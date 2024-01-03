@@ -81,30 +81,42 @@ function(input, output, session) {
     # Input check
     validate(need(inherits(img_process(), "magick-image"), "No image loaded"))
     
-    # Add reticules
+    # Initialize the image
     img_inf <- image_info(img_process())
     img_obj <- image_draw(img_process())
     
+    # Store center point coordinates
+    x_center <- img_inf$width * (input$xoffset + 100)/200
+    y_center <- img_inf$height * (input$yoffset + 100)/200
+    
     ## Draw the grid
+    ## Note: the grid is centered around the center point
     if (input$grid) {
-      abline(h = seq(0, img_inf$height, length.out = 30), col = my_col("grey50", alpha = 0.5))
-      abline(v = seq(0, img_inf$width, length.out = 30), col = my_col("grey50", alpha = 0.5))
+      abline(v = c(
+        seq(from = x_center, to = 0, by = -img_inf$width*input$grid_size/200), 
+        seq(from = x_center, to = img_inf$width, by = img_inf$width*input$grid_size/200)
+      ), col = my_col("grey50", alpha = 0.5))
+      abline(h = c(
+        seq(from = y_center, to = 0, by = -img_inf$height*input$grid_size/200), 
+        seq(from = y_center, to = img_inf$height, by = img_inf$height*input$grid_size/200)
+      ), col = my_col("grey50", alpha = 0.5))
     }
     
     ## Draw the reference axis
     if (input$reticules) {
-      abline(v = img_inf$width * (input$xoffset + 100)/200, col = "red")
-      abline(h = img_inf$height * (input$yoffset + 100)/200, col = "red")
+      
+      ## Focuser
+      abline(v = x_center, col = "red")
+      abline(h = y_center, col = "red")
       plotrix::draw.circle(
-        x      = img_inf$width * (input$xoffset + 100)/200, 
-        y      = img_inf$height * (input$yoffset + 100)/200, 
+        x = x_center, y = y_center, 
         radius = img_inf$width * input$focuser/200, 
         border = "red"
       )
       
+      ## Secondary mirror
       plotrix::draw.circle(
-        x      = img_inf$width * (input$xoffset + 100)/200, 
-        y      = img_inf$height * (input$yoffset + 100)/200, 
+        x = x_center, y = y_center, 
         radius = img_inf$width * input$secondary/200, 
         border = "green"
       )
