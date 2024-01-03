@@ -144,7 +144,7 @@ server <- function(input, output, session) {
   output$save_image <- downloadHandler(
     filename = function() { 
       paste0("CollimatR_", format(Sys.time(), "%b-%d-%Y_%Hh%M"), ".jpg")
-      },
+    },
     content = function(file) {
       image_write(image = img_final(), path = file, format = "jpeg")
     }
