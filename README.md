@@ -41,8 +41,7 @@ Once cropped the boxes showing the selected image portion will be updated in the
 9. Adjust the size (`Focuser reticule size`) and position (`X-origin offset`, `Y-origin offset`) sliders of the focuser reticule _(red circle)_ to match the edges of the focuser on the image. Then adjust the `Secondary reticule size` to match the size of the secondary mirror on the image.
 <p align="center" width="100%"><img width="90%" src="https://github.com/guiastrennec/CollimatR/assets/7304883/f64d8afc-d15a-42b4-a776-4fc35a12e0bc"></p>
 
-13. From there you can evaluate whether the secondary is:
-- Centered in the focuser
-- Properly oriented toward the focuser (i.e. appears circular and not eliptical)
-9. Iterate between steps 5 and 8 until the secondary mirror aligment with the focuser is satisfactory.
-  
+10. Using the reticulated image we can now see that the secondary mirror is not centered in the focuser. Adjustments can be made to the secondary mirror to improve the aligment with the optical axis. A new image can then be taken and imported into the app using the `Browse...` button. If the camera has not moved between pictures the image transformation (size, crop, rotation) and reticules (offset, size) should be automatically applied to the image. 
+
+11. For future use the app settings can be bookmarked using the `Bookmark` button.
+
