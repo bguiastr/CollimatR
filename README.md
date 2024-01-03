@@ -20,7 +20,7 @@ _Disclaimer this idea was inspired from this  <a target="_blank" href="https://f
 3. Place the collimation eyepiece on the focuser and mount the phone to have the secondary mirror in focus in the focuser as shown below.
 <p align="center" width="100%"><img width="50%" src="https://github.com/guiastrennec/CollimatR/assets/7304883/4f6888f1-3542-48f9-9203-cb430ef72055"></p>
 
-4. Take a picture through the collimation eyepiece and start the app (here).
+4. Take a picture through the collimation eyepiece and start the CollimatR app (<a target="_blank" href="https://guiastrennec.shinyapps.io/CollimatR">here</a>).
 <p align="center" width="100%"><img width="90%" src="https://github.com/guiastrennec/CollimatR/assets/7304883/9beb9151-0b6f-45c2-a35c-0428a458885c"></p>
 
 5. Upload the picture to the app using the `Browse...` button. The image will appear in the app.
