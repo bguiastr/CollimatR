@@ -78,7 +78,8 @@ function(input, output, session) {
     img_obj
   })
   
-  output$img_out <- renderImage({
+  
+  img_final <- reactive({
     # Input check
     validate(need(inherits(img_process(), "magick-image"), "No image loaded"))
     
@@ -124,9 +125,17 @@ function(input, output, session) {
     }
     dev.off()
     
+    img_obj
+  })
+  
+  output$img_out <- renderImage({
+    
+    # Input check
+    validate(need(inherits(img_final(), "magick-image"), "No image loaded"))
+    
     # Create the final image
     tmpfile <- image_write(
-      image  = img_obj, 
+      image  = img_final(), 
       path   = tempfile(fileext = "jpg"), 
       format = "jpg"
     )
@@ -136,5 +145,15 @@ function(input, output, session) {
   }, 
   deleteFile = TRUE
   )
+  
+  output$save_image <- downloadHandler(
+    filename = function() { 
+      paste0("CollimatR_", format(Sys.time(), "%b-%d-%Y_%Hh%M"), ".jpg")
+      },
+    content = function(file) {
+      image_write(image = img_final(), path = file, format = "jpeg")
+    }
+  )
+  
   
 }

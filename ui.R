@@ -127,6 +127,13 @@ navbarPage(
             ),
             sliderInput("focuser", "Focuser reticule size", value = 50, min = 0, max = 100, post = "%"),
             sliderInput("secondary", "Secondary reticule size", value = 30, min = 0, max = 100, post = "%")
+          ),
+          
+          ## Section 4: Save ---
+          collapse_toggle(id = "sec4", label = "4. Save", value = TRUE),
+          conditionalPanel(
+            condition = "input.sec4 == true",
+            downloadButton(outputId = "save_image", label = "Download image", class = "btn-primary")
           )
         ),
         
