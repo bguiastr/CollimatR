@@ -3,6 +3,7 @@ my_col <- function(color, alpha) {
   do.call(rgb,c(as.list(col2rgb(color)/255), alpha))
 }
 
+# Define the app backend
 function(input, output, session) {
   
   # Required by shinyhelper
@@ -108,14 +109,14 @@ function(input, output, session) {
       ## Focuser
       abline(v = x_center, col = "red")
       abline(h = y_center, col = "red")
-      plotrix::draw.circle(
+      draw.circle(
         x = x_center, y = y_center, 
         radius = img_inf$width * input$focuser/200, 
         border = "red"
       )
       
       ## Secondary mirror
-      plotrix::draw.circle(
+      draw.circle(
         x = x_center, y = y_center, 
         radius = img_inf$width * input$secondary/200, 
         border = "green"
