@@ -39,7 +39,7 @@ Once cropped the boxes showing the selected image portion will be updated in the
 <p align="center" width="100%"><img width="90%" src="https://github.com/guiastrennec/CollimatR/assets/7304883/278d3045-6342-4e53-ba90-d09f91c15bef"></p>
 
 9. Adjust the size (`Focuser reticule size`) and position (`X-origin offset`, `Y-origin offset`) sliders of the focuser reticule _(red circle)_ to match the edges of the focuser on the image. Then adjust the `Secondary reticule size` to match the size of the secondary mirror on the image.
-<p align="center" width="100%"><img width="90%" src="https://github.com/guiastrennec/CollimatR/assets/7304883/f64d8afc-d15a-42b4-a776-4fc35a12e0bc"></p>
+<p align="center" width="100%"><img width="90%" src="https://github.com/guiastrennec/CollimatR/assets/7304883/b98b2339-6f68-4ed5-a7ea-193a1831d21f"></p>
 
 10. Using the reticulated image we can now see that the secondary mirror is not centered in the focuser. Adjustments can be made to the secondary mirror to improve the aligment with the optical axis. A new image can then be taken and imported into the app using the `Browse...` button. If the camera has not moved between pictures the image transformation (size, crop, rotation) and reticules (offset, size) should be automatically applied to the image.
 <p align="center" width="100%"><img width="90%" src="https://github.com/guiastrennec/CollimatR/assets/7304883/7e2b4f58-057c-48fa-b099-449390c69860"></p>
