@@ -34,7 +34,7 @@ ui <- function(request) {
             conditionalPanel(
               condition = "input.sec1 == true",
               helper(
-                fileInput("img_file", label = NULL, accept = "image/*", width = "95%"), 
+                fileInput("img_file", label = NULL, accept = c(".heic", "image/*"), width = "95%"), 
                 type = "inline", title = "Uploading images", colour = "#D3D3D3",
                 content = p("Click the", code("Browse..."), " button and select an image of your secondary mirror seen through a collimation eyepiece.")
               ),

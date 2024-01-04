@@ -12,7 +12,7 @@ server <- function(input, output, session) {
   observeEvent(input$img_dblclick, {
     brush <- input$img_brush
     if (!is.null(brush)) {
-      crop <- c(sort(c(brush$xmin, brush$xmax)), sort(c(brush$ymin, brush$ymax)))
+        crop <- c(brush$xmin, brush$xmax, brush$ymin, brush$ymax)
     } else {
       crop <- c(0, 0, 0, 0)
     }
@@ -149,6 +149,4 @@ server <- function(input, output, session) {
       image_write(image = img_final(), path = file, format = "jpeg")
     }
   )
-  
-  
 }
