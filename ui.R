@@ -34,10 +34,14 @@ ui <- function(request) {
             conditionalPanel(
               condition = "input.sec1 == true",
               helper(
-                fileInput("img_file", label = NULL, accept = c(".heic", "image/*"), width = "95%"), 
-                type = "inline", title = "Uploading images", colour = "#D3D3D3",
-                content = p("Click the", code("Browse..."), " button and select an image of your secondary mirror seen through a collimation eyepiece.")
+                shinyDirButton("img_dir", label = "Select folder", title = NULL, icon = icon("folder")), 
+                type = "inline", title = "Select input directory", colour = "#D3D3D3",
+                content = p(
+                  p("Click the", code("Select folder"), " button and select a folder containing images of your secondary mirror seen through a collimation eyepiece."),
+                  p("The app will automatically import the most recent .png, .jpg, or .heic from that folder if any. Of note, the app is intended to be used with an an-automated image capture to facilitate the refinment of the collimation settings.")
+                )
               ),
+              wellPanel("Imported image:", br(), em(htmlOutput("filename"))),
               hr()
             ),
             
@@ -45,7 +49,7 @@ ui <- function(request) {
             collapse_toggle(id = "sec2", label = "2. Image Adjustments", value = TRUE),
             conditionalPanel(
               condition = "input.sec2 == true",
-              sliderInput("scale", "Scale", value = 30, min = 0, max = 100, post = "%"),
+              sliderInput("scale", "Scale", value = 100, min = 0, max = 100, step = 0.5, post = "%"),
               
               helper(
                 strong("Crop"), 
@@ -81,7 +85,7 @@ ui <- function(request) {
                 )
               ),
               helper(
-                sliderInput("rotate", "Rotate", min = -180, max = 180, value = 0, post = "°"),
+                sliderInput("rotate", "Rotate", min = -180, max = 180, value = 0, step = 0.5, post = "°"),
                 type = "inline", title = "Adjusting secondary mirror orientation", colour = "#D3D3D3",
                 content = p("Adjust the image orientation to align the secondary mirror mount to the x axis.")
               ),
@@ -99,11 +103,11 @@ ui <- function(request) {
               sliderInput("grid_size", "Grid size", value = 5, min = 0, max = 100, post = "%"),
               
               fluidRow(
-                column(sliderInput("xoffset", "X-origin offset", value = 0, min = -100, max = 100, post = "%"), width = 6),
-                column(sliderInput("yoffset", "Y-origin offset", value = 0, min = -100, max = 100, post = "%"), width = 6)
+                column(sliderInput("xoffset", "X-origin offset", value = 0, min = -100, max = 100, step = 0.5, post = "%"), width = 6),
+                column(sliderInput("yoffset", "Y-origin offset", value = 0, min = -100, max = 100, step = 0.5, post = "%"), width = 6)
               ),
-              sliderInput("focuser", "Focuser reticule size", value = 50, min = 0, max = 100, post = "%"),
-              sliderInput("secondary", "Secondary reticule size", value = 30, min = 0, max = 100, post = "%")
+              sliderInput("focuser", "Focuser reticule size", value = 50, min = 0, max = 100, step = 0.5, post = "%"),
+              sliderInput("secondary", "Secondary reticule size", value = 30, min = 0, max = 100, step = 0.5, post = "%")
             ),
             
             ## Section 4: Save ---

@@ -3,6 +3,7 @@ library(shiny)
 library(shinythemes)
 library(shinyhelper)
 library(shinyWidgets)
+library(shinyFiles)
 library(magick)
 library(plotrix)
 
@@ -32,3 +33,6 @@ my_col <- function(color, alpha) {
 
 # Enable bookmarking
 enableBookmarking(store = "url")
+
+# Set starting directory for folder
+roots <- c(Home = "~")

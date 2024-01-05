@@ -1,12 +1,15 @@
-# Define the app backend
+# Define the app back-end
 server <- function(input, output, session) {
   
   # Required by shinyhelper
   observe_helpers()
   
+  # Required by shinyFiles
+  shinyDirChoose(input, "img_dir", roots = roots, filetypes = c("heic", "png", "jpeg", "jpg"))
+  
   # Initialize reactive values
   ## Image cropping value
-  crop    <- reactiveValues(x = c(0, 0), y = c(0, 0))
+  crop <- reactiveValues(x = c(0, 0), y = c(0, 0))
   
   ## Update cropping value if done via the mouse cursor
   observeEvent(input$img_dblclick, {
@@ -24,16 +27,40 @@ server <- function(input, output, session) {
     updateNumericInput(session, "cbottom", value = crop[4])
   })
   
-  # Import image
-  img_raw <- reactive({
+  # Pick image file
+  img_file <- reactive({
+    
+    # Parse the image directory
+    img <- parseDirPath(roots, input$img_dir)
+    
+    # List all images in the selected directory
+    img <- list.files(path = img, pattern = "\\.(png|jpg|heic|jpeg)$", full.names = TRUE)
+    
+    # List most recent image file
+    img[which.max(file.info(img)$mtime)]
+  })
+
+  output$filename <- renderUI({
+    # Input check
     validate(
-      need(is.character(input$img_file$datapath), "Please select and upload a collimation image to get started.")
+      need(length(img_file()) > 0, "No Image found")
     )
     
-    # Read image file 
-    image_read(input$img_file$datapath)
-  })
+    # Input check
+    img_file()
+    })
   
+  # Import raw image
+  img_raw <- reactive({
+    # Input check
+    validate(
+      need(length(img_file()) > 0, "Please select a directory containg collimation images to get started.")
+      )
+    
+    # Read the image to R
+    image_read(img_file())
+  })
+    
   
   # Image processing
   img_process <- reactive({
