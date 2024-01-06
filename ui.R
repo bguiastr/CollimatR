@@ -34,14 +34,24 @@ ui <- function(request) {
             conditionalPanel(
               condition = "input.sec1 == true",
               helper(
-                shinyDirButton("img_dir", label = "Select folder", title = NULL, icon = icon("folder")), 
-                type = "inline", title = "Select input directory", colour = "#D3D3D3",
+                shinyFilesButton("img_name", label = "Select image", title = NULL, multiple = FALSE, icon = icon("image")), 
+                type = "inline", title = "Select input file", colour = "#D3D3D3",
                 content = p(
-                  p("Click the", code("Select folder"), " button and select a folder containing images of your secondary mirror seen through a collimation eyepiece."),
-                  p("The app will automatically import the most recent .png, .jpg, or .heic from that folder if any. Of note, the app is intended to be used with an an-automated image capture to facilitate the refinment of the collimation settings.")
+                  p("Click the", code("Select image"), " button and select an image of your secondary mirror seen through a collimation eyepiece. Supported formats are", code(".jpg"), code(".png"), ", and", code(".heic"), ".")
                 )
               ),
               wellPanel("Imported image:", br(), em(htmlOutput("filename"))),
+              helper(
+                strong("Image auto-reload"),
+                type = "inline", title = "Image auto-reload", colour = "#D3D3D3",
+                content = p(
+                  p("When the", code("Image auto-reload"), "box is checked the collimation image will reloaded from the file based on the", code("interval (mg)"), ". This is intended to be used together with an external program automatically capturing images from a camera.")
+                )
+              ),
+              fluidRow(
+                column(width = 6, checkboxInput("refresh", "Active", value = FALSE)),
+                column(width = 6, numericInput("delay", "Interval (ms)", value = 100, min = 0, step = 50))
+              ),
               hr()
             ),
             
@@ -106,9 +116,11 @@ ui <- function(request) {
                 column(sliderInput("xoffset", "X-origin offset", value = 0, min = -100, max = 100, step = 0.5, post = "%"), width = 6),
                 column(sliderInput("yoffset", "Y-origin offset", value = 0, min = -100, max = 100, step = 0.5, post = "%"), width = 6)
               ),
-              sliderInput("focuser", "Focuser reticule size", value = 50, min = 0, max = 100, step = 0.5, post = "%"),
-              sliderInput("secondary", "Secondary reticule size", value = 30, min = 0, max = 100, step = 0.5, post = "%")
+              sliderInput("focuser", HTML("<span style=\"color:red\">Focuser</span> reticule size"), value = 50, min = 0, max = 100, step = 0.5, post = "%"),
+              sliderInput("secondary", HTML("<span style=\"color:yellow\">Secondary mirror</span> reticule size"), value = 30, min = 0, max = 100, step = 0.5, post = "%"),
+              sliderInput("primary", HTML("<span style=\"color:green\">Primary mirror</span> reticule size"), value = 20, min = 0, max = 100, step = 0.5, post = "%")
             ),
+            hr(),
             
             ## Section 4: Save ---
             collapse_toggle(id = "sec4", label = "4. Save", value = TRUE),
